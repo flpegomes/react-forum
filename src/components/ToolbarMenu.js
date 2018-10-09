@@ -1,22 +1,35 @@
 
 import React, { Component, Fragment } from 'react'
-import { Toolbar, AppBar, Typography, Button, Paper, Tabs, Tab } from '@material-ui/core'
-import PropTypes from 'prop-types';
+import { Toolbar, AppBar, Typography, Button, Paper, Tabs, Tab, Badge } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
+
+
 
 const styles = {
   root: {
     flexGrow: 1,
-    margin: 16
+    margin: 16,
+    backgroundColor:'#999'
   },
   grow: {
-    flexGrow: 1,
   },
   title: {
-    marginRight: 10
+    marginRight: 10,
+    flexGrow: 1,
   },
   titleTab: {
-    margin: 16
+    padding: 16
+  },
+  button: {
+    position: 'absolute',
+    marginRight: 16,
+    right: 0,
+  },
+  padding: {
+    padding: `0 15px`,
+  },
+  tabContainer: {
+    backgroundColor: '#fff'
   }
 };
 
@@ -42,38 +55,76 @@ class ToolbarMenu extends Component {
     const { classes } = this.props;
     const { value } = this.state
     return (
-      <Fragment>
+      <Fragment >
         <AppBar position='static'>
           <Toolbar>
-            <Typography variant="h5" component="h2" className={classes.title}>
+            <Typography variant='h6' component="h2" className={classes.title} color="inherit" >
                 READABLE 
-            </Typography>
-            <Typography variant="subtitle1" className={classes.grow} >
-              por felipe gomes
             </Typography>
             <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
-        <Typography variant="h5" align='center' className={classes.titleTab}  >
-          Categorias
-        </Typography>
+        
         <Paper className={classes.root}>
+          <Typography variant="h6" align='center' className={classes.titleTab}  >
+            CATEGORIAS
+          </Typography>
           <Tabs
             value={this.state.value}
             onChange={this.handleChange}
-            indicatorColor="primary"
-            textColor="primary"
+            indicatorColor="secondary"
+            textColor="secondary"
             centered
           >
-            <Tab label="React" />
-            <Tab label="Redux" />
-            <Tab label="Udacity" />
+            <Tab label=
+              {this.state.value === 0 ? (
+                'TODAS AS POSTAGENS' 
+              )
+              : (
+              <Badge className={classes.padding} color="primary" badgeContent={4}>
+                  TODAS AS POSTAGENS
+              </Badge>
+              )}
+            />
+            <Tab label=
+              {this.state.value === 1 ? (
+                'REACT' 
+              )
+              : (
+              <Badge className={classes.padding} color="primary" badgeContent={1}>
+                  REACT
+              </Badge> 
+              )}
+            />
+            <Tab label=
+              {this.state.value === 2 ? (
+                'REDUX' 
+              )
+              : (
+              <Badge className={classes.padding} color="primary" badgeContent={7}>
+                  REDUX
+              </Badge> 
+              )} 
+            />
+            <Tab label=
+            {this.state.value === 3 ? (
+                'UDACITY' 
+              )
+              : (
+              <Badge className={classes.padding} color="primary" badgeContent={2}>
+                  UDACITY
+              </Badge> 
+              )} 
+            />
           </Tabs>
-          {value === 0 && <TabContainer>Item One</TabContainer>}
+          {value === 0 && <TabContainer className={classes.tabContainer}>Item One</TabContainer>}
           {value === 1 && <TabContainer>Item Two</TabContainer>}
           {value === 2 && <TabContainer>Item Three</TabContainer>}
+          {value === 3 && <TabContainer>Item Three</TabContainer>}
         </Paper>
-        
+        <Button variant="contained" color='secondary' className={classes.button}>
+          CRIAR POST
+        </Button>
       </Fragment>
       
 
