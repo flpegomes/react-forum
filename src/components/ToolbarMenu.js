@@ -6,24 +6,25 @@ import { withStyles } from '@material-ui/core/styles';
 
 
 const styles = {
-  root: {
+  paper: {
     flexGrow: 1,
     margin: 16,
-    backgroundColor:'#999'
-  },
-  grow: {
   },
   title: {
     marginRight: 10,
     flexGrow: 1,
   },
   titleTab: {
-    padding: 16
+    padding: 16,
+    backgroundColor: '#ddd',
+    flexGrow: 1,
   },
   button: {
-    position: 'absolute',
+    float: 'right',
     marginRight: 16,
-    right: 0,
+  },
+  tab: {
+    backgroundColor:'#ddd',
   },
   padding: {
     padding: `0 15px`,
@@ -35,7 +36,7 @@ const styles = {
 
 function TabContainer({ children, dir }) {
   return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
+    <Typography variant="subtitle1" component="div" style={{ padding: 8 * 3 }}>
       {children}
     </Typography>
   );
@@ -55,26 +56,32 @@ class ToolbarMenu extends Component {
     const { classes } = this.props;
     const { value } = this.state
     return (
-      <Fragment >
+      <Fragment>
         <AppBar position='static'>
           <Toolbar>
-            <Typography variant='h6' component="h2" className={classes.title} color="inherit" >
+            <Typography variant='h6' component="title" className={classes.title} color="inherit" >
                 READABLE 
             </Typography>
+            
             <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
         
-        <Paper className={classes.root}>
-          <Typography variant="h6" align='center' className={classes.titleTab}  >
+        <Paper className={classes.paper}>
+          <Typography variant='h6' align='left' className={classes.titleTab}  >
             CATEGORIAS
+            <Button variant="contained" color='primary' className={classes.button}>
+              NOVA POSTAGEM
+            </Button>
           </Typography>
+          
           <Tabs
             value={this.state.value}
             onChange={this.handleChange}
-            indicatorColor="secondary"
-            textColor="secondary"
-            centered
+            indicatorColor="primary"
+            textColor="primary"
+            className={classes.tab}
+            
           >
             <Tab label=
               {this.state.value === 0 ? (
@@ -122,9 +129,12 @@ class ToolbarMenu extends Component {
           {value === 2 && <TabContainer>Item Three</TabContainer>}
           {value === 3 && <TabContainer>Item Three</TabContainer>}
         </Paper>
-        <Button variant="contained" color='secondary' className={classes.button}>
-          CRIAR POST
-        </Button>
+        
+        <Paper className={classes.paper}>
+        <Typography variant="h6" align='left' className={classes.titleTab}  >
+            POSTAGENS MAIS DISCUTIDAS
+        </Typography>
+        </Paper>
       </Fragment>
       
 
