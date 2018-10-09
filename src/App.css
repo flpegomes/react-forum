@@ -30,3 +30,11 @@
     transform: rotate(360deg);
   }
 }
+
+.toolbarTitle {
+  flex: 1,
+}
+
+.toolbarMain {
+  borderBottom: 1px solid #323232,
+}
