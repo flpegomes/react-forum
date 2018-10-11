@@ -11,12 +11,12 @@ class ListPost extends Component {
             <div>
                 {category === 'all' && (
                     posts.map((post) => (
-                        <div key={post.id}><Post post={post}/></div>
+                      <Post key={post.id} post={post}/>
                     ))
                 )}
 
                 {posts.filter((post) => post.category === category).map((post) => (
-                    <div key={post.id}><Post post={post}/></div>
+                    <Post key={post.id} post={post}/>
                 ))}
             </div>
         )
@@ -24,6 +24,7 @@ class ListPost extends Component {
 }
 
 function mapStateToProps({ posts }) {
+
     return {
       posts
     }

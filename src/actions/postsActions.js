@@ -1,5 +1,4 @@
-import { getAllPosts } from '../utils/api'
-import { showLoading, hideLoading } from 'react-redux-loading'
+//import { showLoading, hideLoading } from 'react-redux-loading'
 
 const api = "http://localhost:3001"
 const headers = {
@@ -21,6 +20,34 @@ function fetchPosts (posts) {
 export const getPosts = () => {
     return (dispatch) => {
         fetch(`${api}/posts`, {headers})
+            .then((response) => {
+                if (!response.ok) {
+                throw Error(response.statusText)
+                }
+                return response
+            })
+        .then((response) => response.json())
+        .then((data) => dispatch(fetchPosts(data)))
+    }
+}
+
+export const getCategoryPosts = (category) => {
+    return (dispatch) => {
+        fetch(`${api}/${category}/posts`, {headers})
+            .then((response) => {
+                if (!response.ok) {
+                throw Error(response.statusText)
+                }
+                return response
+            })
+        .then((response) => response.json())
+        .then((data) => dispatch(fetchPosts(data)))
+    }
+}
+
+export const getPostDetail= (id) => {
+    return (dispatch) => {
+        fetch(`${api}/posts/${id}`, {headers})
             .then((response) => {
                 if (!response.ok) {
                 throw Error(response.statusText)

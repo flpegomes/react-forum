@@ -1,5 +1,4 @@
-import { getAllCategories } from '../utils/api'
-import { showLoading, hideLoading } from 'react-redux-loading'
+//import { showLoading, hideLoading } from 'react-redux-loading'
 
 
 const api = "http://localhost:3001"

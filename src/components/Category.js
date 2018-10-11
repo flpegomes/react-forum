@@ -52,7 +52,7 @@ function TabContainer(props) {
 }
 
 
-class Dashboard extends Component {
+class Category extends Component {
 
   componentDidMount() {
     this.props.dispatch(getCategories())
@@ -87,8 +87,6 @@ class Dashboard extends Component {
             
           </Tabs>
           
-          {category === 'all' && <TabContainer><ListPost category='all' /></TabContainer>}
-
           {categories.map(({name, path}) => (
             category === name && (
             <TabContainer key={path}><ListPost category={name} /></TabContainer> )
@@ -107,7 +105,7 @@ function mapStateToProps({ categories }, props) {
   const { category } = props.match.params
 
   return {
-    category,
+    category: category === undefined ? 'all' : category,
     categories
   }
 }
@@ -118,4 +116,4 @@ export default compose(
   }),
   withRouter,
   connect(mapStateToProps)
-)(Dashboard);
+)(Category);

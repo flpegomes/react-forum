@@ -11,6 +11,8 @@ const defaultData = {
     author: 'thingtwo',
     category: 'react',
     voteScore: 6,
+    voteUp: 7,
+    voteDown: 1,
     deleted: false,
     commentCount: 2
   },
@@ -22,6 +24,8 @@ const defaultData = {
     author: 'thingone',
     category: 'redux',
     voteScore: -5,
+    voteUp: 1,
+    voteDown: 6,
     deleted: false,
     commentCount: 0
   }
@@ -76,6 +80,8 @@ function add (token, post) {
       author: post.author,
       category: post.category,
       voteScore: 1,
+      voteUp: 0,
+      voteDown: 0,
       deleted: false,
       commentCount: 0
     }
@@ -91,9 +97,11 @@ function vote (token, id, option) {
     switch(option) {
         case "upVote":
             post.voteScore = post.voteScore + 1
+            post.voteUp = post.voteUp + 1
             break
         case "downVote":
             post.voteScore = post.voteScore - 1
+            post.voteDown = post.voteDown + 1
             break
         default:
             console.log(`posts.vote received incorrect parameter: ${option}`)

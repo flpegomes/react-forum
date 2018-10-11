@@ -24,7 +24,6 @@ class ToolbarMenu extends Component {
             <Typography variant='h6' component="title" className={classes.title} color="inherit" >
                 READABLE 
             </Typography>
-            
             <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
