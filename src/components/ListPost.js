@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Post from './Post'
 
 
 class ListPost extends Component {
@@ -9,13 +10,13 @@ class ListPost extends Component {
         return (
             <div>
                 {category === 'all' && (
-                    posts.map((posts) => (
-                        <div key={posts.id}>{posts.title}</div>
+                    posts.map((post) => (
+                        <div key={post.id}><Post post={post}/></div>
                     ))
                 )}
 
-                {posts.filter((posts) => posts.category === category).map((posts) => (
-                    <div key={posts.id}>{posts.title}</div>
+                {posts.filter((post) => post.category === category).map((post) => (
+                    <div key={post.id}><Post post={post}/></div>
                 ))}
             </div>
         )
