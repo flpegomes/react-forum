@@ -1,9 +1,9 @@
 
 import React, { Component, Fragment } from 'react'
-import { Typography, Button, Paper, Tabs, Tab, Badge } from '@material-ui/core'
+import { Typography, Button, Paper, Tabs, Tab } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
-import { handleAllCategories } from '../actions/categoriesActions'
-import { handleAllPosts } from '../actions/postsActions'
+import { getCategories } from '../actions/categoriesActions'
+import { getPosts } from '../actions/postsActions'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import ListPost from './ListPost'
@@ -48,10 +48,12 @@ function TabContainer({ children, dir }) {
 
 
 class Dashboard extends Component {
+
   componentDidMount() {
-    this.props.dispatch(handleAllCategories())
-    this.props.dispatch(handleAllPosts())
+    this.props.dispatch(getCategories())
+    this.props.dispatch(getPosts())
   }
+
   state = {
     value: 'all',
   };
@@ -63,7 +65,6 @@ class Dashboard extends Component {
   render() {
     const { classes, categories } = this.props;
     const { value } = this.state
-    console.log(categories)
     return (
       <Fragment>        
         <Paper className={classes.paper}>
@@ -83,29 +84,23 @@ class Dashboard extends Component {
             
           >
             <Tab label='TODAS AS POSTAGEM' value='all' />
-            {Object.keys(categories).map((item) => {
-                const name = categories[item].name
-
-               return ( <Tab label={name} value={name}/> )
-              }
-            )}
+            {categories.map(({name, path}) => (
+              <Tab key={name} label={name} value={name}/> 
+            ))}
             
           </Tabs>
           
-          {value === 'all' && <TabContainer><ListPost categorie='all' /></TabContainer>}
+          {value === 'all' && <TabContainer><ListPost category='all' /></TabContainer>}
 
-          {Object.keys(categories).map((item) => {
-                const name = categories[item].name
-                if(value === name ){
-                  return  <TabContainer><ListPost categorie={name}/></TabContainer>
-                }
-                return null;
-              }
-          )}
+          {categories.map(({name, path}) => (
+            value === name && (
+            <TabContainer key={name}><ListPost category={name}/></TabContainer> )
+          ))}
           
         </Paper>
       </Fragment>
-      
+
+        
 
     );
   }

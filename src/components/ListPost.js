@@ -1,13 +1,31 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 
 class ListPost extends Component {
     render() {
-        return (
+        const { category, posts } = this.props
 
-                <div> {this.props.categorie} </div>
+        return (
+            <div>
+                {category === 'all' && (
+                    posts.map((posts) => (
+                        <div key={posts.id}>{posts.title}</div>
+                    ))
+                )}
+
+                {posts.filter((posts) => posts.category === category).map((posts) => (
+                    <div key={posts.id}>{posts.title}</div>
+                ))}
+            </div>
         )
     }
 }
 
-export default ListPost
+function mapStateToProps({ posts }) {
+    return {
+      posts
+    }
+  }
+
+export default connect(mapStateToProps)(ListPost)

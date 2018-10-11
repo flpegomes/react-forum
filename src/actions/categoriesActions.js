@@ -2,25 +2,32 @@ import { getAllCategories } from '../utils/api'
 import { showLoading, hideLoading } from 'react-redux-loading'
 
 
+const api = "http://localhost:3001"
+const headers = {
+    'Accept': 'application/json',
+    'Authorization': 'sadsda'
+  }
+  
+export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 
-export const GET_CATEGORIES = 'GET_CATEGORIES'
 
-
-function receiveAllCategories (categories) {
+function fetchCategories (categories) {
     return {
-        type: GET_CATEGORIES,
+        type: FETCH_CATEGORIES,
         categories
     }
 }
 
-export function handleAllCategories() {
+export const getCategories = () => {
     return (dispatch) => {
-        dispatch(showLoading())
-        return getAllCategories()
-            .then((categories) => {
-                dispatch(receiveAllCategories(categories))
-                dispatch(hideLoading())
+        fetch(`${api}/categories`, {headers})
+            .then((response) => {
+                if (!response.ok) {
+                throw Error(response.statusText)
+                }
+                return response
             })
-            .catch((a) => console.log(a))
+        .then((response) => response.json())
+        .then((data) => dispatch(fetchCategories(data.categories)))
     }
 }

@@ -8,12 +8,12 @@ if (!token)
 
 const headers = {
   'Accept': 'application/json',
-  'Authorization': token
+  'Authorization': 'sadsda'
 }
 
 export const getAllCategories = () =>
   fetch(`${api}/categories`, { headers })
-    .then(res => res.json())
+    .then(res =>  res.json())
     .then(data => data.categories)
 
 export const getAllPosts = () =>

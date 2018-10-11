@@ -1,26 +1,33 @@
 import { getAllPosts } from '../utils/api'
 import { showLoading, hideLoading } from 'react-redux-loading'
 
+const api = "http://localhost:3001"
+const headers = {
+    'Accept': 'application/json',
+    'Authorization': 'sadsda'
+}
+
+export const FETCH_POSTS = 'FETCH_POSTS'
 
 
-export const GET_POSTS = 'GET_POSTS'
-
-
-function receiveAllPosts (posts) {
+function fetchPosts (posts) {
     return {
-        type: GET_POSTS,
+        type:FETCH_POSTS,
         posts
     }
 }
 
-export function handleAllPosts() {
+
+export const getPosts = () => {
     return (dispatch) => {
-        dispatch(showLoading())
-        return getAllPosts()
-            .then((posts) => {
-                dispatch(receiveAllPosts(posts))
-                dispatch(hideLoading())
+        fetch(`${api}/posts`, {headers})
+            .then((response) => {
+                if (!response.ok) {
+                throw Error(response.statusText)
+                }
+                return response
             })
-            .catch((a) => console.log(a))
+        .then((response) => response.json())
+        .then((data) => dispatch(fetchPosts(data)))
     }
 }

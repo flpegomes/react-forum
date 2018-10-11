@@ -1,13 +1,9 @@
-import { GET_POSTS } from '../actions/postsActions'
+import { FETCH_POSTS } from '../actions/postsActions'
 
 export default function postsReducer ( state = [] , action) {
     switch(action.type) {
-        case GET_POSTS: 
-        console.log(action)
-        return {
-            ...state,
-            ...action.posts,
-        }
+        case FETCH_POSTS: 
+            return action.posts
         default:
             return state
     }
